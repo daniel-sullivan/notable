@@ -57,6 +57,10 @@ module Notable
     (RequestStore.store[:notable_notes] ||= []) << {note_type: note_type, note: note}
   end
 
+  def self.track_raw(data = {})
+    (RequestStore.store[:notable_notes] ||= []) << data
+  end
+
   def self.track_error(e)
     track "Error", "#{e.class.name}: #{e.message}"
   end
