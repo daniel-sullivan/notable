@@ -59,16 +59,10 @@ module Notable
               ip: ip,
               user_agent: request.user_agent,
               url: note[:url] || url,
+              user: note[:user] || user,
               referrer: request.referer,
               request_time: request_time
             }
-
-            if note[:user_id]
-              data[:user_id] = note[:user_id]
-              data[:user_type] = note[:user_type]
-            else
-              data[:user] = user
-            end
 
             Notable.track_request_method.call(data, env)
           end
