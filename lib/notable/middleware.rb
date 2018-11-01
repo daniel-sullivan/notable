@@ -52,17 +52,24 @@ module Notable
             data = {
               note_type: note[:note_type],
               note: note[:note],
-              user: user,
-              action: action,
-              status: status,
-              params: params,
+              action: note[:action] || action,
+              status: note[:status] || status,
+              params: note[:params] || params,
               request_id: request.uuid,
               ip: ip,
               user_agent: request.user_agent,
-              url: url,
+              url: note[:url] || url,
               referrer: request.referer,
               request_time: request_time
             }
+
+            if data[:user_id]
+              data[:user_id] = note[:user_id]
+              data[:user_type] = note[:user_type]
+            else
+              data[:user] = user
+            end
+
             Notable.track_request_method.call(data, env)
           end
         end
