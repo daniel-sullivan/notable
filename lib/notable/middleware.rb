@@ -63,7 +63,7 @@ module Notable
               request_time: request_time
             }
 
-            if data[:user_id]
+            if note[:user_id]
               data[:user_id] = note[:user_id]
               data[:user_type] = note[:user_type]
             else
